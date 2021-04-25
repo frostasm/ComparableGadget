@@ -4,6 +4,24 @@
 
 #include <QDebug>
 
+/*
+Child class example:
+
+#include <ComparableGadget/ComparableGadget.h>
+
+class Child : public ComparableGadget
+{
+    Q_GADGET
+    COMPARABLE_GADGET(Child)
+    Q_PROPERTY(QString name MEMBER name);
+public:
+
+    QString name;
+};
+
+DECLARE_COMPARABLE_GADGET_METATYPE(Child)
+*/
+
 class ComparableGadget
 {
     Q_GADGET
