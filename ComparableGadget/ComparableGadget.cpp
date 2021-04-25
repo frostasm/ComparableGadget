@@ -3,6 +3,8 @@
 #include <QMetaProperty>
 #include <QDebug>
 
+//#define LOG_NOT_EQUAL_PROPERTIES
+
 bool isGadgetEqual(const ComparableGadget &lhs, const ComparableGadget &rhs, const QMetaObject &metaObject);
 
 ComparableGadget::ComparableGadget()
@@ -134,8 +136,11 @@ bool isGadgetEqual(const ComparableGadget &lhs, const ComparableGadget &rhs, con
         Q_ASSERT_X(thisValue.isValid(), __func__, prop.name());
         Q_ASSERT_X(otherValue.isValid(), __func__, prop.name());
         const bool equal = thisValue == otherValue;
-//        qDebug() << "Compare properties:" << prop.name() << thisValue << otherValue << "equal:" << equal;
         if (!equal) {
+#if defined (LOG_NOT_EQUAL_PROPERTIES)
+            qDebug() << "Compare properties different. Prop(" << prop.typeName() << "):" << prop.name()
+                     << "this:" << thisValue << "other:" << otherValue << "equal:" << equal;
+#endif
             return false;
         }
     }

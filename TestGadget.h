@@ -19,6 +19,8 @@ class TestGadget : public ComparableGadget
 //    Q_PROPERTY(SimpleQGadget vSimgleGadget MEMBER vSimgleGadget)
 
 public:
+//    QString toString() const override { return ComparableGadget::toString(); };
+
     float vFloat{};
     double vDouble{0.1};
     quint8 vQuint8{25};

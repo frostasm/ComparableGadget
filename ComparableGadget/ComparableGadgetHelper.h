@@ -24,7 +24,14 @@ inline bool qRegisterComparableGadget()
     const bool debugStreamListOk = QMetaType::registerDebugStreamOperator<QList<T>>();
     Q_ASSERT(debugStreamListOk);
 
-    return typeId > 0 && typeIdList > 0 && comparatorOk && comparatorListOk && debugStreamOk && debugStreamListOk;
+    // QMetaType::registerConverter(&T::toString) does not work without override toString function in class T
+    const bool stringConverter = QMetaType::registerConverter<T, QString>([](const T& g) { return g.toString(); });
+    Q_ASSERT(stringConverter);
+
+    return typeId > 0 && typeIdList > 0
+           && comparatorOk && comparatorListOk
+           && debugStreamOk && debugStreamListOk
+           && stringConverter;
 }
 
 #define COMPARABLE_GADGET(name) \

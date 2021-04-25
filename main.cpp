@@ -17,9 +17,9 @@ int main(int argc, char *argv[])
     t1.vChilds = childs;
 //    t2.vChilds = childs;
 
-    qDebug() << "t1:" <<  t1 << endl << "t2:" << t2;
-
-    qDebug() << "equal:" << (t1 == t2 ? "true" : "false");
+    qDebug().noquote() << "t1.toString():" <<  QVariant::fromValue(t1).toString();
+//    qDebug() << "t1:" <<  t1 << endl << "t2:" << t2;
+//    qDebug() << "equal:" << (t1 == t2 ? "true" : "false");
 
     return 0;
 }
