@@ -21,5 +21,4 @@ public:
     QString vString{"string"};
 };
 
-Q_DECLARE_METATYPE(ChildGadget)
-
+DECLARE_COMPARABLE_GADGET_METATYPE(ChildGadget)

@@ -12,12 +12,14 @@ HEADERS += \
     ComparableGadget/ComparableGadgets.h \
     ComparableGadget/ComparableGadgetHelper.h \
     ChildGadget.h \
+    SimpleQGadget.h \
     TestGadget.h
 
 SOURCES += \
     ComparableGadget/ComparableGadget.cpp \
     ComparableGadget/ComparableGadgets.cpp \
     ChildGadget.cpp \
+    SimpleQGadget.cpp \
     TestGadget.cpp \
     main.cpp
 

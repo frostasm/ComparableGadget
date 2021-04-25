@@ -12,10 +12,10 @@ int main(int argc, char *argv[])
     registerComparableGadgets();
 
     TestGadget t1, t2;
-//    t1.vString = "";
+    ChildGadget ch1;
+    qDebug() << t1;
 
     qDebug() << "equal:" << (t1 == t2 ? "true" : "false");
 
-//    return a.exec();
     return 0;
 }

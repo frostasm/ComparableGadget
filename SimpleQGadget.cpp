@@ -1,0 +1,2 @@
+#include "SimpleQGadget.h"
+
