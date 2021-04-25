@@ -9,6 +9,11 @@ ComparableGadget::ComparableGadget()
 {
 }
 
+ComparableGadget::~ComparableGadget()
+{
+
+}
+
 const QMetaObject *ComparableGadget::getStaticMetaObject() const
 {
     Q_ASSERT_X(false, __func__, "Classes inherited from ComparableGadget must use COMPARABLE_GADGET(class name) and "

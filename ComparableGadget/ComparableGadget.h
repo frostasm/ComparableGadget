@@ -9,6 +9,7 @@ class ComparableGadget
     Q_GADGET
 public:
     ComparableGadget();
+    virtual ~ComparableGadget();
 
     virtual const QMetaObject* getStaticMetaObject() const;
 

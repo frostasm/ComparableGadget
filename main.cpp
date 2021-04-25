@@ -11,9 +11,13 @@ int main(int argc, char *argv[])
 
     registerComparableGadgets();
 
-    TestGadget t1, t2;
     ChildGadget ch1;
-    qDebug() << t1;
+    QList<ChildGadget> childs = {ch1, ch1};
+    TestGadget t1, t2;
+    t1.vChilds = childs;
+//    t2.vChilds = childs;
+
+    qDebug() << "t1:" <<  t1 << endl << "t2:" << t2;
 
     qDebug() << "equal:" << (t1 == t2 ? "true" : "false");
 

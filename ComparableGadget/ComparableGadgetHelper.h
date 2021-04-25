@@ -1,26 +1,42 @@
 #pragma once
 
+#include <QList>
 #include <QObject>
 
 template <typename T>
-inline int qRegisterComparableGadget()
+inline bool qRegisterComparableGadget()
 {
-    const int id = qRegisterMetaType<T>();
-    QMetaType::registerEqualsComparator<T>();
-    QMetaType::registerDebugStreamOperator<T>();
+    const int typeId = qRegisterMetaType<T>();
+    Q_ASSERT(typeId > 0);
 
-    return id;
+    const int typeIdList = qRegisterMetaType<QList<T>>();
+    Q_ASSERT(typeIdList > 0);
+
+    const bool comparatorOk = QMetaType::registerEqualsComparator<T>();
+    Q_ASSERT(comparatorOk);
+
+    const bool comparatorListOk = QMetaType::registerEqualsComparator<QList<T>>();
+    Q_ASSERT(comparatorListOk);
+
+    const bool debugStreamOk = QMetaType::registerDebugStreamOperator<T>();
+    Q_ASSERT(debugStreamOk);
+
+    const bool debugStreamListOk = QMetaType::registerDebugStreamOperator<QList<T>>();
+    Q_ASSERT(debugStreamListOk);
+
+    return typeId > 0 && typeIdList > 0 && comparatorOk && comparatorListOk && debugStreamOk && debugStreamListOk;
 }
 
 #define COMPARABLE_GADGET(name) \
-    static int _qMetaId()  { return QMetaType::type(#name); } \
 public: \
-    name() { Q_ASSERT_X(_qMetaId() != 0, __func__, \
-                        "Add code to register " #name " into global function registerComparableGadgets()!"); } \
+    Q_INVOKABLE name() { Q_ASSERT_X(QMetaType::type(#name) != 0, __func__, "Add registration code " \
+    "qRegisterComparableGadget<" #name ">() and call registerComparableGadgets function at application startup!"); } \
     const QMetaObject* getStaticMetaObject() const override { return &name::staticMetaObject; } \
 private:
 
 
 #define DECLARE_COMPARABLE_GADGET_METATYPE(name) \
     Q_DECLARE_METATYPE(name); \
-    inline QDebug operator<<(QDebug d, const name &g) { d << qUtf8Printable(g.toString()); return d; }
+    Q_DECLARE_METATYPE(QList<name>); \
+    inline QDebug operator<<(QDebug d, const name &g) { d << qUtf8Printable(g.toString()); return d; } \
+    inline QDebug operator<<(QDebug d, const QList<name> &l) { for (const auto& g: l) d << qUtf8Printable(g.toString()) << ", "; return d; }
